@@ -1,11 +1,32 @@
 import React from 'react';
-import Star from '../star';
+import Star from '../Star';
 import { GoTriangleRight } from "react-icons/go";
 import { AiOutlineStar } from 'react-icons/ai';
 import { useParams } from 'react-router-dom';
 import { useGetMovieQuery } from '../../services/Api';
+import { CiLocationArrow1 } from 'react-icons/ci'
+import { useState } from 'react';
+
+function Modal({ data, modalActive, modalClose }) {
+  if (!modalActive) return null;
+
+  return (
+    <div onClick={() => modalClose()} className="fixed inset-0 grid place-content-center bg-black bg-opacity-50 backdrop-blur-1g">
+      {data?.videos?.results?.length > 0 && (
+        <iframe
+          autoPlay
+          className="aspect-video h-[150px] sm:h-[250px] md:h-[350px] lg:h-[500px]"
+          title="Trailer"
+          src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+          allow="autoplay"
+        />
+      )}
+    </div>
+  );
+}
 
 const MovieInformation = () => {
+  const [modalActive, setModalActive] = useState(false);
   const { id } = useParams();
   console.log(id);
 
@@ -38,12 +59,15 @@ const MovieInformation = () => {
             <h1 className='font-bold mb-3'>Genre:</h1>
             <div className="flex gap-4 ">
               <button className='px-4 py-2  flex justify-center items-center gap-2 rounder-lg bg-light-blue'>
-                <p className='uppercase'>genre1</p>
-                <AiOutlineStar />
-              </button>
-              <button className='px-4 py-2  flex justify-center items-center gap-2 rounder-lg bg-light-blue'>
-                <p className='uppercase'>genre2</p>
-                <AiOutlineStar />
+                {data?.genres.map((genre, index) => (
+                  <p
+                    key={index}
+                    className="mb-4 mr-4 flex items-center justify-center rounded-lg bg-[#227fb4] px-3 py-2 text-sm"
+                  >
+                    <span className="mr-2 uppercase">{genre?.name}</span>
+                    <CiLocationArrow1 className="text-sm" />
+                  </p>
+                ))}
               </button>
             </div>
           </div>
@@ -65,18 +89,25 @@ const MovieInformation = () => {
                     {character?.name}
                   </p>
                 </div>
-              )).slice(0, 6)}
+              )).slice(0, 8)}
             </div>
           </div>
           <div className="w-full mt-3 flex justify-start items-center">
             <button className='px-3 py-2 border rounded lg mr-4  flex justify-center items-center gap-2'>
-              <span>website</span>
-              <GoTriangleRight />
+              <a href={data?.homepage} target='_blank' className='flex justify-center items-center gap-2'>
+                <span>website</span>
+                <GoTriangleRight />
+              </a>
             </button>
-            <button className='px-3 py-2 border rounded lg flex justify-center items-center gap-2'>
+            <button
+              onClick={() => {
+                setModalActive(true);
+              }}
+              className='px-3 py-2 border rounded lg flex justify-center items-center gap-2'>
               <span>trailer</span>
               <GoTriangleRight />
             </button>
+            <Modal data={data} modalActive={modalActive} modalClose={() => setModalActive(false)} />
           </div>
         </div>
       </div>
