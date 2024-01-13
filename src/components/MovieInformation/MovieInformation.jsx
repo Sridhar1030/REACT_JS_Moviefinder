@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetMovieQuery } from "../../services/Api";
-import Stars from "../Stars";
+import Star from "../Star";
 import { CiLocationArrow1 } from "react-icons/ci";
 import { RxTriangleRight } from "react-icons/rx";
 
@@ -55,7 +55,7 @@ const MovieInformation = () => {
           </h1>
           <p className="my-2 text-center">{data?.tagline}</p>
           <div className="flex flex-col items-center justify-between gap-2 px-5 lg:flex-row">
-            <Stars starVote={data?.vote_average} />
+            <Star starVote={data?.vote_average} />
             <p className="">
               {data?.runtime}min / {data?.release_date} /{" "}
               {data?.spoken_languages[0].english_name}
