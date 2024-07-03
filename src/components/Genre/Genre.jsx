@@ -1,5 +1,5 @@
 import React from 'react'
-import Movies from '../movies/Movies'
+import Movies from '../Movies/Movies'
 import TopBar from '../Topbar/TopBar'
 import { useGetMovieByGenreQuery, useGetMoviesQuery } from '../../services/Api'
 
