@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <div className="w-full px-5 py-5 text-white flex justify-center items-center bg-light-blue">
       <div className="w-[100%] max-w-[1700px] flex items-center justify-between ">
-        <Link to='/' className="font-black text-xl">Movies Adda </Link>
+        <Link to='/' className="font-black text-xl">Movies Finder</Link>
         <div className="relative hidden sm:block">
           <input
             type="text"
