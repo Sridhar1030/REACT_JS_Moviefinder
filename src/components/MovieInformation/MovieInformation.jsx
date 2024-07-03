@@ -12,19 +12,17 @@ function Modal({ data, modalActive, modalClose }) {
     <div
       onClick={() => modalClose()}
       className="fixed inset-0 grid place-content-center bg-black bg-opacity-50 backdrop-blur-lg"
-      style={{ pointerEvents: 'none' }}
     >
       {data?.videos?.results?.length > 0 && (
         <iframe
+          
           className="aspect-video h-[150px] sm:h-[250px] md:h-[350px] lg:h-[500px]"
           title="Trailer"
-          src={`https://www.youtube.com/embed/${data.videos.results[0].key}?autoplay=1`}
+          src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
           allow="autoplay"
-          style={{ pointerEvents: 'auto' }}
         />
       )}
     </div>
-
   );
 }
 
